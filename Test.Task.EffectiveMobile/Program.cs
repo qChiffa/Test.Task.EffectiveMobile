@@ -1,3 +1,7 @@
+using Microsoft.Extensions.Options;
+using Test.Task.EffectiveMobile;
+using Test.Task.EffectiveMobile.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
@@ -5,6 +9,8 @@ builder.Logging.AddConsole();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddSingleton<IValidateOptions<AppSettings>, AppSettingsValidator>();
 
 var app = builder.Build();
 
@@ -14,8 +20,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-//когда проснёшься сделай частичный приём запросов через appsettings и нормальную через http, и тогда валидация будет норм работать
+
 app.Run();
