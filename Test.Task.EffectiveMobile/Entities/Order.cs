@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Test.Task.EffectiveMobile.Models;
+namespace Test.Task.EffectiveMobile.Entities;
 
-public class OrderModel
+public class Order
 {
     [Required(ErrorMessage = "Номер заказа обязателен")]
     [RegularExpression(@"^\d+$", ErrorMessage = "Номер заказа должен состоять только из цифр")]

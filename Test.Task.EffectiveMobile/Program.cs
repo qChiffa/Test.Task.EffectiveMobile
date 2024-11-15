@@ -11,7 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddSingleton<IValidateOptions<AppSettings>, AppSettingsValidator>();
-
+builder.Services.AddSingleton<IDataReader, DataReader>();
+builder.Services.AddSingleton<IOrderFilter, OrderFilter>();
+builder.Services.AddSingleton<IWriteFilterOrders, WriteFilterOrders>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

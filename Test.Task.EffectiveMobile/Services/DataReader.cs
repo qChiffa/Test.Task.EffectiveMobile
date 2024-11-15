@@ -1,13 +1,20 @@
 using System.Globalization;
+using Test.Task.EffectiveMobile.Entities;
 using Test.Task.EffectiveMobile.Models;
 
 namespace Test.Task.EffectiveMobile;
 
-public static class DataReader
+public interface IDataReader
 {
-    public static List<OrderModel> ReadOrdersFromFile(string filePath)
+    List<Order> ReadOrdersFromFile(string filePath);
+}
+
+
+public  class DataReader : IDataReader
+{
+    public  List<Order> ReadOrdersFromFile(string filePath)
     {
-        var orders = new List<OrderModel>();
+        var orders = new List<Order>();
         var lines = File.ReadAllLines(filePath);
 
         foreach (var line in lines)
@@ -15,7 +22,7 @@ public static class DataReader
             var parts = line.Split(',');
             if (parts.Length == 4)
             {
-                orders.Add(new OrderModel
+                orders.Add(new Order
                 {
                     OrderNumber = parts[0],
                     Weight = double.Parse(parts[1], CultureInfo.InvariantCulture),
